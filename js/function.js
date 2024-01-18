@@ -44,7 +44,7 @@ function cellGeneration(index, dimension) {
 
   cell.setAttribute("cell-index", index);
 
-  cell.innerText = index;
+  //   cell.innerText = index;
 
   cell.addEventListener("click", function () {
     cellClick(this);
@@ -61,5 +61,6 @@ function cellGeneration(index, dimension) {
 function cellClick(element) {
   element.classList.toggle("clicked");
   let cellIndex = element.getAttribute("cell-index");
+  element.innerText = element.classList.contains("clicked") ? cellIndex : "";
   console.log("Hai premuto la casella: " + cellIndex);
 }
