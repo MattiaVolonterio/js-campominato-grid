@@ -51,7 +51,13 @@
   width: calc(100% / 10);
   height: calc(100% / 10);
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   border: 1px solid black;
+
+  cursor: pointer;
 }
 
 .box-10 {
