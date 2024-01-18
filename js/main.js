@@ -11,6 +11,5 @@ gridGeneration(gridContainer, difficulty);
 // ## ON PLAY BUTTON CLICK
 
 playButton.addEventListener("click", function () {
-  let difficulty = document.getElementById("difficulty-selection");
   gridGeneration(gridContainer, difficulty);
 });
