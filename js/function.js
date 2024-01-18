@@ -1,12 +1,12 @@
 // ## GENERAZIONE DELLA GRIGLIA
 
-function gridGeneration() {
-  const gridContainer = document.getElementById("grid-container");
+function gridGeneration(container) {
+  container.innerHTML = "";
 
   for (let i = 1; i <= 100; i++) {
     let cellEl = cellGeneration(i);
 
-    gridContainer.append(cellEl);
+    container.append(cellEl);
   }
 }
 
