@@ -6,14 +6,14 @@
  */
 function difficultyCheck(difficulty) {
   if (difficulty.value == "easy") {
-    result = 100;
+    cellQuantity = 100;
   } else if (difficulty.value == "medium") {
-    result = 81;
+    cellQuantity = 81;
   } else {
-    result = 49;
+    cellQuantity = 49;
   }
 
-  return result;
+  return cellQuantity;
 }
 
 // ## GENERAZIONE DELLA GRIGLIA
@@ -58,7 +58,7 @@ function cellGeneration(index, dimension) {
   cell.setAttribute("cell-index", index);
 
   cell.addEventListener("click", function clickAndRemoveEvent() {
-    let clickCount = cellClick(this);
+    cellClick(this);
     this.removeEventListener("click", clickAndRemoveEvent);
   });
 
@@ -72,7 +72,6 @@ function cellGeneration(index, dimension) {
  */
 function cellClick(element) {
   let cellIndex = element.getAttribute("cell-index");
-  let cellClickCount = element.getAttribute("cell-click-count");
 
   if (bombVerify(bombGeneratedArray, cellIndex)) {
     element.classList.toggle("danger");
@@ -84,8 +83,11 @@ function cellClick(element) {
       location.reload();
     }, 1000);
   } else {
+    playerScore++;
+    result.innerText = playerScore;
     element.classList.toggle("clicked");
     element.innerText = element.classList.contains("clicked") ? cellIndex : "";
+    scoreVerify(playerScore, difficulty);
   }
 }
 
@@ -118,10 +120,31 @@ function bombGeneration(chosenDifficulty) {
  */
 function bombVerify(arrayToVerify, indexToVerify) {
   let verify = false;
+
   for (let i = 0; i < arrayToVerify.length; i++) {
     if (indexToVerify == arrayToVerify[i]) {
       verify = true;
     }
   }
+
   return verify;
+}
+
+// ## VERIFICA IL PUNTEGGIO
+/**
+ *
+ * @param {number} score il punteggio attuale da verificare
+ * @param {HTMLElement} scoreByDifficult la difficoltà attuale selezionata usata per calcolare il punteggio massimo
+ */
+function scoreVerify(score, scoreByDifficult) {
+  let maxScore = difficultyCheck(difficulty) - 16;
+
+  if (score == maxScore) {
+    setTimeout(function () {
+      alert("HAI VINTO, PUNTEGGIO MASSIMO RAGGIUNTO");
+    }, 300);
+    setTimeout(function () {
+      location.reload();
+    }, 1000);
+  }
 }
