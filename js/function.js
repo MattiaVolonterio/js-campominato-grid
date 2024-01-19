@@ -57,8 +57,9 @@ function cellGeneration(index, dimension) {
 
   cell.setAttribute("cell-index", index);
 
-  cell.addEventListener("click", function () {
-    cellClick(this);
+  cell.addEventListener("click", function clickAndRemoveEvent() {
+    let clickCount = cellClick(this);
+    this.removeEventListener("click", clickAndRemoveEvent);
   });
 
   return cell;
@@ -71,10 +72,11 @@ function cellGeneration(index, dimension) {
  */
 function cellClick(element) {
   let cellIndex = element.getAttribute("cell-index");
+  let cellClickCount = element.getAttribute("cell-click-count");
 
   if (bombVerify(bombGeneratedArray, cellIndex)) {
     element.classList.toggle("danger");
-    element.innerText = element.classList.contains("danger") ? cellIndex : "";
+    element.innerText = element.classList.contains("danger") ? "BOOM" : "";
     setTimeout(function () {
       alert("HAI PERSO, HAI CLICCATO SU UNA BOMBA");
     }, 300);
