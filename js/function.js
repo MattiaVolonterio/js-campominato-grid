@@ -74,11 +74,10 @@ function cellClick(element) {
   let cellIndex = element.getAttribute("cell-index");
 
   if (bombVerify(bombGeneratedArray, cellIndex)) {
-    element.classList.toggle("danger");
-    element.innerText = element.classList.contains("danger") ? "BOOM" : "";
+    allVisible();
     setTimeout(function () {
       alert("HAI PERSO, HAI CLICCATO SU UNA BOMBA");
-    }, 300);
+    }, 400);
     setTimeout(function () {
       location.reload();
     }, 1000);
@@ -146,5 +145,27 @@ function scoreVerify(score) {
     setTimeout(function () {
       location.reload();
     }, 1000);
+  }
+}
+
+// ## GIRA TUTTE LE CASELLE
+
+function allVisible() {
+  let allCell = document.getElementsByClassName("box");
+  let range = difficultyCheck(difficulty);
+
+  for (let i = 0; i < range; i++) {
+    let currentCell = allCell[i];
+    let currentIndex = currentCell.getAttribute("cell-index");
+    if (
+      !currentCell.classList.contains("clicked") &&
+      !bombVerify(bombGeneratedArray, currentIndex)
+    ) {
+      currentCell.classList.toggle("clicked");
+      currentCell.innerText = currentIndex;
+    } else if (bombVerify(bombGeneratedArray, currentIndex)) {
+      currentCell.classList.toggle("danger");
+      currentCell.innerText = "BOOM";
+    }
   }
 }
