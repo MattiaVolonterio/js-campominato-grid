@@ -1,3 +1,17 @@
+// ## VERIFICO LA DIFFICOLTA'
+
+function difficultyCheck(difficulty) {
+  if (difficulty.value == "easy") {
+    result = 100;
+  } else if (difficulty.value == "medium") {
+    result = 81;
+  } else {
+    result = 49;
+  }
+
+  return result;
+}
+
 // ## GENERAZIONE DELLA GRIGLIA
 /**
  *
@@ -9,13 +23,7 @@ function gridGeneration(container, quantity) {
 
   let iteration;
 
-  if (quantity.value == "easy") {
-    iteration = 100;
-  } else if (quantity.value == "medium") {
-    iteration = 81;
-  } else {
-    iteration = 49;
-  }
+  iteration = difficultyCheck(quantity);
 
   for (let i = 1; i <= iteration; i++) {
     let cellEl = cellGeneration(i, iteration);
@@ -76,13 +84,7 @@ function bombGeneration(chosenDifficulty) {
   let range;
   let bombArray = [];
 
-  if (chosenDifficulty.value == "easy") {
-    range = 100;
-  } else if (chosenDifficulty.value == "medium") {
-    range = 81;
-  } else {
-    range = 49;
-  }
+  range = difficultyCheck(chosenDifficulty);
 
   while (bombArray.length < 16) {
     let randomNumber = Math.floor(Math.random() * (range - 1 + 1) + 1);
