@@ -87,7 +87,7 @@ function cellClick(element) {
     result.innerText = playerScore;
     element.classList.toggle("clicked");
     element.innerText = element.classList.contains("clicked") ? cellIndex : "";
-    scoreVerify(playerScore, difficulty);
+    scoreVerify(playerScore);
   }
 }
 
@@ -136,7 +136,7 @@ function bombVerify(arrayToVerify, indexToVerify) {
  * @param {number} score il punteggio attuale da verificare
  * @param {HTMLElement} scoreByDifficult la difficoltà attuale selezionata usata per calcolare il punteggio massimo
  */
-function scoreVerify(score, scoreByDifficult) {
+function scoreVerify(score) {
   let maxScore = difficultyCheck(difficulty) - 16;
 
   if (score == maxScore) {

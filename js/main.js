@@ -12,12 +12,10 @@ let playerScore = 0;
 
 gridGeneration(gridContainer, difficulty);
 bombGeneratedArray = bombGeneration(difficulty);
-console.table(bombGeneratedArray);
 
 // ## ON PLAY BUTTON CLICK
 
 playButton.addEventListener("click", function () {
   gridGeneration(gridContainer, difficulty);
   bombGeneratedArray = bombGeneration(difficulty);
-  console.table(bombGeneratedArray);
 });
