@@ -76,3 +76,8 @@
   color: white;
   background-color: blue;
 }
+
+.box.danger {
+  color: black;
+  background-color: red;
+}

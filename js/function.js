@@ -1,5 +1,9 @@
 // ## VERIFICO LA DIFFICOLTA'
-
+/**
+ *
+ * @param {HTMLElement} difficulty la difficoltà selezionata del gioco
+ * @returns un numero pari al numero di caselle della griglia in base alla difficoltà
+ */
 function difficultyCheck(difficulty) {
   if (difficulty.value == "easy") {
     result = 100;
@@ -42,6 +46,7 @@ function gridGeneration(container, quantity) {
 function cellGeneration(index, dimension) {
   let cell = document.createElement("div");
   cell.classList.add("box");
+
   if (dimension == 100) {
     cell.classList.add("box-10");
   } else if (dimension == 81) {
@@ -51,8 +56,6 @@ function cellGeneration(index, dimension) {
   }
 
   cell.setAttribute("cell-index", index);
-
-  //   cell.innerText = index;
 
   cell.addEventListener("click", function () {
     cellClick(this);
@@ -67,10 +70,21 @@ function cellGeneration(index, dimension) {
  * @param {element} element l'elemento su cui attuare il toggle
  */
 function cellClick(element) {
-  element.classList.toggle("clicked");
   let cellIndex = element.getAttribute("cell-index");
-  element.innerText = element.classList.contains("clicked") ? cellIndex : "";
-  console.log("Hai premuto la casella: " + cellIndex);
+
+  if (bombVerify(bombGeneratedArray, cellIndex)) {
+    element.classList.toggle("danger");
+    element.innerText = element.classList.contains("danger") ? cellIndex : "";
+    setTimeout(function () {
+      alert("HAI PERSO, HAI CLICCATO SU UNA BOMBA");
+    }, 300);
+    setTimeout(function () {
+      location.reload();
+    }, 1000);
+  } else {
+    element.classList.toggle("clicked");
+    element.innerText = element.classList.contains("clicked") ? cellIndex : "";
+  }
 }
 
 // ## GENERAZIONE CASUALE DELLE BOMBE IN BASE ALLA DIFFICOLTA'
@@ -88,9 +102,24 @@ function bombGeneration(chosenDifficulty) {
 
   while (bombArray.length < 16) {
     let randomNumber = Math.floor(Math.random() * (range - 1 + 1) + 1);
-    if (!bombArray.includes(randomNumber)) {
-      bombArray.push(randomNumber);
-    }
+    if (!bombArray.includes(randomNumber)) bombArray.push(randomNumber);
   }
   return bombArray;
+}
+
+// ## VERIFICA SE LA CELLA PREMUTA CORRISPONDE AD UNA BOMBA
+/**
+ *
+ * @param {array} arrayToVerify l'array che contiene le bombe
+ * @param {number} indexToVerify l'indice della cella da verificare se è una bomba o no
+ * @returns
+ */
+function bombVerify(arrayToVerify, indexToVerify) {
+  let verify = false;
+  for (let i = 0; i < arrayToVerify.length; i++) {
+    if (indexToVerify == arrayToVerify[i]) {
+      verify = true;
+    }
+  }
+  return verify;
 }
